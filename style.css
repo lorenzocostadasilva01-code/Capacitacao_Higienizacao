@@ -1,149 +1,359 @@
+:root {
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --bg-app: #f0f9ff;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --success: #22c55e;
+    --warning-bg: #fef3c7;
+    --warning-border: #f59e0b;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
-    background-color: #f0f2f5;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    color: var(--text-main);
 }
 
+/* Container Principal com Animação de Entrada */
 .container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1), 0 8px 10px -6px rgba(2, 132, 199, 0.1);
     width: 100%;
-    max-width: 500px;
+    max-width: 480px;
     text-align: center;
+    animation: fadeIn 0.5s ease-out;
 }
 
 .hidden { display: none !important; }
 
-h2 { color: #1a73e8; margin-bottom: 15px; }
-p { color: #5f6368; margin-bottom: 20px; font-size: 14px; }
+h2 { 
+    color: var(--primary); 
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px; 
+}
 
+p { 
+    color: var(--text-muted); 
+    margin-bottom: 24px; 
+    font-size: 15px; 
+    line-dash: 1.5;
+}
+
+/* Inputs e Botões Modernizados */
 input[type="text"] {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #dadce0;
-    border-radius: 6px;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     margin-bottom: 20px;
     font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
 }
 
 button {
-    background-color: #1a73e8;
+    background-color: var(--primary);
     color: white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
+    padding: 14px 28px;
+    border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
     width: 100%;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.2);
 }
-button:hover { background-color: #1557b0; }
-.btn-secundario { background-color: #5f6368; margin-top: 10px; }
-.btn-secundario:hover { background-color: #45474a; }
 
+button:hover { 
+    background-color: var(--primary-hover); 
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px -1px rgba(2, 132, 199, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.btn-secundario { 
+    background-color: #94a3b8; 
+    margin-top: 12px; 
+    box-shadow: none;
+}
+.btn-secundario:hover { 
+    background-color: #64748b; 
+    box-shadow: none;
+}
+
+/* Painel de Status do Jogo */
 .cronometro {
-    margin: 15px 0;
-    font-weight: bold;
-    color: #3c4043;
-    background: #e8f0fe;
-    padding: 8px;
-    border-radius: 6px;
+    margin-bottom: 24px;
+    font-weight: 600;
+    color: var(--primary);
+    background: #e0f2fe;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-around;
 }
 
-/* Tabuleiro e Cartas */
+/* Tabuleiro com Perspectiva 3D */
 .tabuleiro {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
     margin-top: 20px;
+    perspective: 1000px; /* Necessário para o efeito 3D das cartas */
 }
 
+/* Elemento de Carta com Efeito Flip 3D */
 .carta {
     height: 110px;
-    background-color: #1a73e8;
-    color: white;
-    border-radius: 8px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
+    border-radius: 14px;
+    user-select: none;
+}
+
+/* Estado quando a carta está virada para cima */
+.carta.virada {
+    transform: rotateY(180deg);
+}
+
+/* Aparência das faces da carta */
+.carta-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Esconde a face de trás ao virar */
+    border-radius: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center;
-    padding: 5px;
-    user-select: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-weight: 700;
+    padding: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
 }
 
-.carta.virada {
-    background-color: #e6f4ea;
-    color: #137333;
-    border: 2px solid #137333;
+/* Face de Trás (Escondida / Azul) */
+.carta-verso {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+    font-size: 24px;
 }
 
+.carta:hover .carta-verso {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+}
+
+/* Face da Frente (Revelada / Branca e Verde) */
+.carta-frente {
+    background-color: #f8fafc;
+    color: #0f172a;
+    border: 2px solid #e2e8f0;
+    transform: rotateY(180deg);
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+/* Quando o par é desvendado corretamente */
 .carta.revelada {
-    background-color: #f1f3f4;
-    color: #9aa0a6;
-    border: 2px dashed #dadce0;
+    transform: rotateY(180deg);
     cursor: default;
+}
+
+.carta.revelada .carta-frente {
+    background-color: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+    animation: pulseAcerto 0.5s ease-out;
 }
 
 /* Alertas e Certificado */
 .alerta-sanitario {
-    background-color: #fef7e0;
-    border-left: 4px solid #f9ab00;
-    color: #663c00;
-    padding: 15px;
+    background-color: var(--warning-bg);
+    border-left: 4px solid var(--warning-border);
+    color: #78350f;
+    padding: 16px;
     text-align: left;
-    margin-bottom: 20px;
-    border-radius: 4px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    font-size: 14px;
 }
 
 .dados-certificado {
-    border: 2px dashed #1a73e8;
-    padding: 20px;
-    margin-bottom: 20px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
     text-align: left;
-    background-color: #f8f9fa;
+    background-color: #f8fafc;
 }
-.dados-certificado h3 { text-align: center; color: #1a73e8; margin-bottom: 15px; }
-.dados-certificado p { margin-bottom: 8px; color: #3c4043; }
+.dados-certificado h3 { text-align: center; color: var(--primary); margin-bottom: 18px; }
+.dados-certificado p { margin-bottom: 10px; color: #334155; font-size: 14px; }
 
-/* Efeito do Número Gigante */
+/* Animação do Número Gigante */
 .feedback {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 150px;
-    font-weight: bold;
-    color: rgba(26, 115, 232, 0.8);
-    animation: sumir 1s forwards;
+    font-size: 180px;
+    font-weight: 800;
+    color: rgba(2, 132, 199, 0.85);
+    text-shadow: 0 10px 30px rgba(2, 132, 199, 0.2);
+    animation: popOut 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: none;
     z-index: 10;
 }
-@keyframes sumir {
-    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+
+/* KEYFRAMES DAS ANIMAÇÕES */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Configuração para impressão do Atestado */
+@keyframes popOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
+}
+
+@keyframes pulseAcerto {
+    0% { transform: scale(1) rotateY(180deg); }
+    50% { transform: scale(1.08) rotateY(180deg); }
+    100% { transform: scale(1) rotateY(180deg); }
+}
+
+/* ==========================================================================
+   CONFIGURAÇÃO DE FORMATAÇÃO PARA IMPRESSÃO (FOLHA A4 / PDF)
+   ========================================================================== */
 @media print {
-    body * { visibility: hidden; }
-    #tela-final, #tela-final * { visibility: visible; }
-    #tela-final { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; box-shadow: none; padding: 0; }
-    button { display: none; }
+    /* Configura o tamanho da folha e margens do papel */
+    @page {
+        size: A4;
+        margin: 20mm 15mm 20mm 15mm;
+    }
+
+    /* Esconde absolutamente tudo o que não pertence ao certificado */
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0;
+        margin: 0;
+        display: block; /* Remove o flex do layout de tela */
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    /* Torna apenas a tela final e o certificado visíveis */
+    #tela-final, #tela-final * {
+        visibility: visible;
+    }
+
+    /* Redefine o container para ocupar a folha inteira sem sombras ou bordas de tela */
+    #tela-final {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+
+    /* Esconde os botões na impressão */
+    #tela-final button {
+        display: none !important;
+    }
+
+    /* Estilização exclusiva do Título de Conclusão na folha */
+    #tela-final h2 {
+        color: #0f172a !important;
+        font-size: 22pt !important;
+        margin-bottom: 10mm !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    #tela-final p {
+        font-size: 11pt !important;
+        color: #1e293b !important;
+        margin-bottom: 5mm !important;
+    }
+
+    /* Alerta Sanitário formatado como uma nota técnica discreta de rodapé */
+    .alerta-sanitario {
+        background-color: #f8fafc !important;
+        border-left: 3px solid #64748b !important;
+        color: #334155 !important;
+        padding: 4mm !important;
+        margin-top: 15mm !important;
+        border-radius: 4px !important;
+        font-size: 10pt !important;
+        page-break-inside: avoid;
+    }
+
+    /* O Bloco Oficial do Atestado de Capacitação */
+    .dados-certificado {
+        border: 1px solid #000000 !important; /* Linha sólida preta para o documento oficial */
+        border-radius: 0 !important; /* Cantos retos tradicionais para documentos */
+        padding: 10mm !important;
+        margin-top: 8mm !important;
+        background-color: #ffffff !important;
+        page-break-inside: avoid; /* Impede que o certificado quebre entre duas páginas */
+    }
+
+    .dados-certificado h3 {
+        color: #000000 !important;
+        font-size: 14pt !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin-bottom: 8mm !important;
+        letter-spacing: 1px;
+    }
+
+    .dados-certificado p {
+        font-size: 12pt !important;
+        line-height: 1.6 !important;
+        margin-bottom: 4mm !important;
+        border-bottom: 1px dotted #cbd5e1; /* Linha pontilhada simulando preenchimento oficial */
+        padding-bottom: 2mm;
+    }
+
+    .dados-certificado p em {
+        font-size: 10pt !important;
+        color: #475569 !important;
+        display: block;
+        margin-top: 6mm;
+        border: none !important;
+    }
 }
