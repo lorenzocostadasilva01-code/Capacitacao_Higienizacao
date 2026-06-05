@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.hidden { display: none !important; }
+
+h2 { color: #1a73e8; margin-bottom: 15px; }
+p { color: #5f6368; margin-bottom: 20px; font-size: 14px; }
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dadce0;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background 0.2s;
+}
+button:hover { background-color: #1557b0; }
+.btn-secundario { background-color: #5f6368; margin-top: 10px; }
+.btn-secundario:hover { background-color: #45474a; }
+
+.cronometro {
+    margin: 15px 0;
+    font-weight: bold;
+    color: #3c4043;
+    background: #e8f0fe;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+/* Tabuleiro e Cartas */
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.carta {
+    height: 110px;
+    background-color: #1a73e8;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.carta.virada {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: 2px solid #137333;
+}
+
+.carta.revelada {
+    background-color: #f1f3f4;
+    color: #9aa0a6;
+    border: 2px dashed #dadce0;
+    cursor: default;
+}
+
+/* Alertas e Certificado */
+.alerta-sanitario {
+    background-color: #fef7e0;
+    border-left: 4px solid #f9ab00;
+    color: #663c00;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.dados-certificado {
+    border: 2px dashed #1a73e8;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: #f8f9fa;
+}
+.dados-certificado h3 { text-align: center; color: #1a73e8; margin-bottom: 15px; }
+.dados-certificado p { margin-bottom: 8px; color: #3c4043; }
+
+/* Efeito do Número Gigante */
+.feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 150px;
+    font-weight: bold;
+    color: rgba(26, 115, 232, 0.8);
+    animation: sumir 1s forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes sumir {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+/* Configuração para impressão do Atestado */
+@media print {
+    body * { visibility: hidden; }
+    #tela-final, #tela-final * { visibility: visible; }
+    #tela-final { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; box-shadow: none; padding: 0; }
+    button { display: none; }
+}

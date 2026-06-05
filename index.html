@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacitação: Higienização das Mãos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="tela-login" class="container">
+        <h2>Capacitação de Boas Práticas</h2>
+        <p>Insira seu nome para iniciar o treinamento e registrar sua presença.</p>
+        <input type="text" id="nome-usuario" placeholder="Nome Completo" required>
+        <button onclick="iniciarTreinamento()">Iniciar Treinamento</button>
+    </div>
+
+    <div id="tela-jogo" class="container hidden">
+        <header>
+            <h3>Olá, <span id="exibir-nome"></span>!</h3>
+            <p>Encontre os pares na <strong>ordem cronológica correta</strong> das etapas.</p>
+            <div class="cronometro">Tempo: <span id="tempo">0</span>s | Tentativas: <span id="tentativas">0</span></div>
+        </header>
+
+        <div class="tabuleiro" id="tabuleiro"></div>
+    </div>
+
+    <div id="tela-final" class="container hidden">
+        <h2>🎉 Treinamento Concluído!</h2>
+        <p>Você fixou com sucesso a ordem correta de higienização das mãos[cite: 6].</p>
+        
+        <div class="alerta-sanitario">
+            <strong>⚠️ Lembrete de Boas Práticas:</strong><br>
+            Não se esqueça do tempo de contato do antisséptico e de sempre realizar a secagem correta utilizando papel não reciclado[cite: 19]!
+        </div>
+
+        <div class="dados-certificado">
+            <h3>ATESTADO DE CAPACITAÇÃO</h3>
+            <p><strong>Nome:</strong> <span id="cert-nome"></span></p>
+            <p><strong>Data de Conclusão:</strong> <span id="cert-data"></span></p>
+            <p><strong>Desempenho:</strong> Concluído em <span id="cert-tempo"></span> segundos com <span id="cert-tentativas"></span> tentativas[cite: 21].</p>
+            <p><em>Conteúdo Programático: RDC 216/2004 - Higienização de Mãos para Manipuladores[cite: 5, 7].</em></p>
+        </div>
+
+        <button onclick="window.print()">Imprimir / Salvar PDF</button>
+        <button onclick="reiniciarJogo()" class="btn-secundario">Jogar Novamente</button>
+    </div>
+
+    <div id="feedback-visual" class="feedback hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
