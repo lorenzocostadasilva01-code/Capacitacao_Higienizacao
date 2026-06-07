@@ -3,32 +3,32 @@ const etapas = [
     { 
         id: 1, 
         texto: "1. Umedecer as mãos", 
-        imagem: "Imagens/Imagem 1.jfif" 
+        imagem: "imagens/1.jpg" 
     },
     { 
         id: 2, 
         texto: "2. Passar sabonete", 
-        imagem: "Imagens/Imagem 2.jfif" 
+        imagem: "imagens/2.jpg" 
     },
     { 
         id: 3, 
         texto: "3. Esfregar palmas", 
-        imagem: "Imagens/Imagem 3.jfif" 
+        imagem: "imagens/3.jpg" 
     },
     { 
         id: 4, 
         texto: "4. Esfregar dorsos", 
-        imagem: "Imagens/Imagem 4.jfif" 
+        imagem: "imagens/4.jpg" 
     },
     { 
         id: 5, 
         texto: "5. Enxaguar bem", 
-        imagem: "Imagens/Imagem 5.jfif" 
+        imagem: "imagens/5.jpg" 
     },
     { 
         id: 6, 
         texto: "6. Secar (Papel)", 
-        imagem: "Imagens/Imagem 6.jfif" 
+        imagem: "imagens/6.jpg" 
     }
 ];
 
