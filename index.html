@@ -16,7 +16,6 @@
     </div>
 
     <div id="tela-login" class="container hidden">
-        <div class="topo-retroceder" onclick="voltarParaBoasVindas()">‹</div>
         <div class="icone-registro">📋</div>
         <h2>Identifique-se</h2>
         <p>Para registrar sua presença e validar seu treinamento desta semana, informe seus dados abaixo.</p>
@@ -36,7 +35,10 @@
             <label for="lembrar-dados">Lembrar meus dados neste aparelho.</label>
         </div>
 
-        <button onclick="autenticarUsuario()" class="btn-verde">ENTRAR E JOGAR</button>
+        <div class="navegacao-pagina">
+            <button class="btn-secundario" onclick="voltarParaBoasVindas()">Voltar</button>
+            <button class="btn-verde" onclick="autenticarUsuario()">Avançar</button>
+        </div>
     </div>
 
     <div id="tela-painel" class="container hidden">
@@ -59,16 +61,23 @@
             <span class="tempo-estimado">Tempo estimado: 3 a 5 minutos.</span>
         </div>
 
-        <button onclick="iniciarPartidaJogo()" class="btn-verde">INICIAR JOGO</button>
+        <div class="navegacao-pagina">
+            <button class="btn-secundario" onclick="voltarParaLogin()">Voltar</button>
+            <button class="btn-verde" onclick="iniciarPartidaJogo()">Avançar</button>
+        </div>
     </div>
 
     <div id="tela-jogo" class="container hidden">
         <header>
             <h3>Jogador: <span id="exibir-nome"></span></h3>
-            <div class="cronometro">Tempo: <span id="tempo">0</span>s | Tentativas: <span id="tentativas">0</span></div>
+            <div class="cronometro"><span class="tempo-medida">Tempo: <span id="tempo">0</span>s</span> | Tentativas: <span id="tentativas">0</span></div>
         </header>
 
         <div class="tabuleiro" id="tabuleiro"></div>
+
+        <div class="navegacao-pagina">
+            <button class="btn-secundario" onclick="voltarParaPainelDuranteJogo()">Voltar</button>
+        </div>
     </div>
 
 <div id="tela-final" class="container hidden">

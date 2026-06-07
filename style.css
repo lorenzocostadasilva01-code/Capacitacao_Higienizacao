@@ -20,6 +20,7 @@
 body {
     background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -106,6 +107,18 @@ button:active {
     box-shadow: none;
 }
 
+.navegacao-pagina {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.navegacao-pagina button {
+    min-width: 130px;
+}
+
 /* Painel de Status do Jogo */
 .cronometro {
     margin-bottom: 24px;
@@ -117,6 +130,12 @@ button:active {
     font-size: 15px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tempo-medida {
+    white-space: nowrap;
 }
 
 /* Tabuleiro com Perspectiva 3D */
@@ -615,7 +634,31 @@ button:active {
     margin-bottom: 20px;
 }
 .label-status { font-weight: 700; color: #991b1b; font-size: 14px; }
-.badge-pendente { background: #ef4444; color: white; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 13px; letter-spacing: 0.5px; }
+.badge-pendente, .badge-concluido {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.badge-pendente {
+    background: #ef4444;
+    color: white;
+}
+
+.badge-concluido {
+    background: #22c55e;
+    color: white;
+    animation: pulse-status 0.35s ease;
+}
+
+@keyframes pulse-status {
+    0% { transform: scale(0.88); opacity: 0.7; }
+    50% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
 .bloco-dica {
     background: #f8fafc;
@@ -739,6 +782,52 @@ button:active {
     .rodape-cert,
     .assinatura-cert {
         font-size: 13px;
+    }
+
+    .dados-certificado {
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    .cabecalho-cert {
+        gap: 4px;
+    }
+
+    .cabecalho-cert strong {
+        font-size: 18px;
+    }
+
+    .cert-grid {
+        gap: 10px;
+    }
+
+    .linha-cert {
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .conteudo-cert {
+        padding: 14px;
+    }
+
+    .conteudo-cert ul {
+        padding-left: 14px;
+    }
+
+    .rodape-cert {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .assinatura-cert {
+        margin-top: 26px;
+        font-size: 12px;
+    }
+
+    .assinatura-linha {
+        width: 100%;
+        background: rgba(203, 213, 225, 0.7);
+        margin-bottom: 10px;
     }
 }
 

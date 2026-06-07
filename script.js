@@ -50,6 +50,7 @@ let cartasSelecionadas = [];
 let totalTentativas = 0; 
 let tempoGasto = 0; 
 let intervaloCronometro = null;
+let treinamentoConcluido = false;
 
 // Ao carregar o app, verifica se o usuário marcou para lembrar os dados da última vez
 window.addEventListener("DOMContentLoaded", () => {
@@ -71,6 +72,20 @@ function irParaLogin() {
 function voltarParaBoasVindas() {
     document.getElementById("tela-login").classList.add("hidden");
     document.getElementById("tela-boas-vindas").classList.remove("hidden");
+}
+
+function voltarParaLogin() {
+    document.getElementById("tela-painel").classList.add("hidden");
+    document.getElementById("tela-login").classList.remove("hidden");
+}
+
+function voltarParaPainelDuranteJogo() {
+    if (intervaloCronometro) {
+        clearInterval(intervaloCronometro);
+    }
+
+    document.getElementById("tela-jogo").classList.add("hidden");
+    document.getElementById("tela-painel").classList.remove("hidden");
 }
 
 // Validação e processamento do formulário de login (Tela 2 -> Tela 3)
@@ -112,6 +127,7 @@ function autenticarUsuario() {
 
 // Inicia a partida vindo do Painel de Controle (Tela 3 -> Tela 4)
 function iniciarPartidaJogo() {
+    treinamentoConcluido = false;
     document.getElementById("exibir-nome").innerText = usuarioNome;
     document.getElementById("tela-painel").classList.add("hidden");
     document.getElementById("tela-jogo").classList.remove("hidden");
@@ -219,9 +235,17 @@ function mostrarNumeroGigante(numero) {
 }
 
 function finalizarTreinamento() {
+    treinamentoConcluido = true;
     clearInterval(intervaloCronometro);
     document.getElementById("tela-jogo").classList.add("hidden");
     document.getElementById("tela-final").classList.remove("hidden");
+
+    const badge = document.querySelector('#tela-painel .badge-pendente, #tela-painel .badge-concluido');
+    if (badge) {
+        badge.classList.remove('badge-pendente');
+        badge.classList.add('badge-concluido');
+        badge.innerText = 'CONCLUÍDO';
+    }
 
     // Formata a data e hora atual no padrão: DD/MM/AAAA às HH:MMh
     const agora = new Date();
@@ -242,7 +266,16 @@ function reiniciarParaPainel() {
     totalTentativas = 0;
     document.getElementById("tentativas").innerText = 0;
     document.getElementById("tempo").innerText = 0;
-    
+
+    if (!treinamentoConcluido) {
+        const badge = document.querySelector('#tela-painel .badge-pendente, #tela-painel .badge-concluido');
+        if (badge) {
+            badge.classList.remove('badge-concluido');
+            badge.classList.add('badge-pendente');
+            badge.innerText = 'PENDENTE';
+        }
+    }
+
     document.getElementById("tela-final").classList.add("hidden");
     
     // Recarrega a tela de painel com uma nova frase randômica para a próxima rodada
@@ -251,3 +284,4 @@ function reiniciarParaPainel() {
     
     document.getElementById("tela-painel").classList.remove("hidden");
 }
+
