@@ -525,31 +525,48 @@ button:active {
 .subtitulo-app { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; }
 
 .topo-retroceder {
-    text-align: left;
-    font-size: 32px;
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    font-size: 28px;
     cursor: pointer;
     color: var(--text-muted);
-    margin-top: -20px;
-    margin-bottom: 10px;
-    display: inline-block;
-    font-weight: 300;
+    background: #eef4fb;
+    border-radius: 14px;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+    font-weight: 500;
 }
-.topo-retroceder:hover { color: var(--primary); }
-.icone-registro { font-size: 40px; margin-bottom: 10px; }
+.topo-retroceder:hover {
+    color: var(--primary);
+    background: #dbeafe;
+    transform: translateY(-1px);
+}
+.icone-registro {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
 
 /* Estrutura de Formulário de Identificação */
 .grupo-input {
     text-align: left;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 .grupo-input label {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     margin-bottom: 6px;
     color: var(--text-main);
 }
-.grupo-input input { margin-bottom: 0px !important; }
+.grupo-input input {
+    margin-bottom: 0px !important;
+    font-size: 15px;
+    padding: 12px 14px;
+}
 
 .grupo-checkbox {
     display: flex;
@@ -636,6 +653,10 @@ button:active {
         font-size: 22px;
     }
 
+    .topo-retroceder {
+        margin-top: 0;
+    }
+
     .topo-painel {
         flex-direction: column;
         align-items: flex-start;
@@ -646,6 +667,8 @@ button:active {
         flex-direction: column;
         align-items: flex-start;
         row-gap: 8px;
+        font-size: 14px;
+        padding: 14px;
     }
 
     .tabuleiro {
@@ -655,6 +678,20 @@ button:active {
 
     .carta {
         height: 100px;
+    }
+
+    .carta-face {
+        padding: 6px;
+    }
+
+    .foto-etapa {
+        height: 52px;
+        margin-top: 10px;
+    }
+
+    .texto-etapa {
+        font-size: 12px !important;
+        white-space: normal;
     }
 
     .cabecalho-cert {
@@ -684,7 +721,11 @@ button:active {
 
     .btn-verde,
     .btn-secundario {
-        padding: 14px 18px;
+        padding: 16px 18px;
+    }
+
+    .btn-verde {
+        font-size: 15px;
     }
 
     .grupo-checkbox {
@@ -692,8 +733,45 @@ button:active {
         gap: 10px;
     }
 
-    .texto-etapa {
-        white-space: normal;
+    .linha-cert span,
+    .linha-cert strong,
+    .conteudo-cert,
+    .rodape-cert,
+    .assinatura-cert {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 380px) {
+    .tabuleiro {
+        grid-template-columns: 1fr;
+    }
+
+    .carta {
+        height: 92px;
+    }
+
+    .container {
+        padding: 20px 16px;
+    }
+
+    .icone-principal {
+        font-size: 44px;
+    }
+
+    .titulo-app {
+        font-size: 22px;
+    }
+
+    .subtitulo-app,
+    .tempo-estimado,
+    .linha-cert span,
+    .linha-cert strong {
+        font-size: 12px;
+    }
+
+    .cronometro {
+        font-size: 13px;
     }
 }
 
