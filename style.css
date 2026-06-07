@@ -206,15 +206,124 @@ button:active {
 }
 
 .dados-certificado {
-    border: 2px dashed #cbd5e1;
-    border-radius: 16px;
-    padding: 24px;
+    background: linear-gradient(180deg, rgba(2, 132, 199, 0.08), #ffffff 72%);
+    border: 1px solid rgba(2, 132, 199, 0.16);
+    border-radius: 24px;
+    padding: 28px;
     margin-bottom: 24px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
     text-align: left;
-    background-color: #f8fafc;
 }
-.dados-certificado h3 { text-align: center; color: var(--primary); margin-bottom: 18px; }
-.dados-certificado p { margin-bottom: 10px; color: #334155; font-size: 14px; }
+
+.cabecalho-cert {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+
+.etiqueta-cert {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 132, 199, 0.12);
+    color: #0369a1;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.cabecalho-cert strong {
+    font-size: 20px;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.cabecalho-cert p {
+    color: #475569;
+    margin: 0;
+    font-size: 14px;
+}
+
+.cert-grid {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.linha-cert {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.linha-cert span {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.linha-cert strong {
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.conteudo-cert {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.conteudo-cert strong {
+    color: #0f172a;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.conteudo-cert ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.conteudo-cert li {
+    margin-bottom: 8px;
+}
+
+.rodape-cert {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.assinatura-cert {
+    text-align: center;
+    color: #334155;
+    font-size: 13px;
+}
+
+.assinatura-linha {
+    display: block;
+    width: 72%;
+    height: 1px;
+    background: #cbd5e1;
+    margin: 0 auto 12px;
+}
 
 /* Animação do Número Gigante */
 .feedback {
@@ -291,8 +400,8 @@ button:active {
     }
 
     /* Esconde os botões na impressão */
-    #tela-final button {
-        display: none !important;
+#tela-final button, .alerta-sanitario, #tela-final h2, #tela-final p {
+        display: none !important; /* Esconde elementos decorativos da tela para imprimir apenas o certificado */
     }
 
     /* Estilização exclusiva do Título de Conclusão na folha */
@@ -502,3 +611,45 @@ button:active {
 .bloco-dica strong { display: block; font-size: 14px; color: var(--primary); margin-bottom: 8px; }
 .bloco-dica p { margin-bottom: 12px !important; font-size: 13.5px; color: #475569; line-height: 1.5; }
 .tempo-estimado { font-size: 11px; color: var(--text-muted); font-weight: 600; display: block; }
+/* --- Estilos Visuais para a Tela do Usuário --- */
+.cabecalho-cert { text-align: center; font-family: monospace; color: #475569; margin-bottom: 15px; line-height: 1.3; }
+.linha-cert { text-align: left; margin-bottom: 10px !important; font-size: 14px; color: #1e293b; }
+.conteudo-cert { text-align: left; font-size: 14px; margin-bottom: 15px; color: #1e293b; }
+.conteudo-cert ul { margin-left: 20px; margin-top: 5px; }
+.rodape-cert { text-align: center; font-family: monospace; color: #475569; margin-top: 15px; margin-bottom: 30px; line-height: 1.3; }
+.assinatura-cert { text-align: center; font-size: 14px; color: #475569; margin-top: 40px; margin-bottom: 10px; }
+
+/* --- Regra de Impressão Oficial (@media print) --- */
+@media print {
+    @page {
+        size: A4;
+        margin: 20mm 15mm;
+    }
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        display: block;
+    }
+    body * { visibility: hidden; }
+    #tela-final, #tela-final * { visibility: visible; }
+    #tela-final {
+        position: absolute; left: 0; top: 0; width: 100%; max-width: 100%;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important; background: transparent !important;
+    }
+    #tela-final button, .alerta-sanitario, #tela-final h2, #tela-final p {
+        display: none !important; /* Esconde elementos decorativos da tela para imprimir apenas o certificado */
+    }
+    .dados-certificado {
+        visibility: visible !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-family: monospace !important; /* Estilo de máquina/relatório oficial */
+        letter-spacing: 0px;
+    }
+    .dados-certificado * {
+        color: #000000 !important;
+        font-family: monospace !important;
+    }
+}

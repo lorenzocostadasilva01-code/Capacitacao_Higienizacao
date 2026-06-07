@@ -223,9 +223,15 @@ function finalizarTreinamento() {
     document.getElementById("tela-jogo").classList.add("hidden");
     document.getElementById("tela-final").classList.remove("hidden");
 
+    // Formata a data e hora atual no padrão: DD/MM/AAAA às HH:MMh
+    const agora = new Date();
+    const dataFormatada = agora.toLocaleDateString('pt-BR');
+    const horaFormatada = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + 'h';
+
+    // Injeta de forma dinâmica todos os dados coletados no layout do certificado
     document.getElementById("cert-nome").innerText = usuarioNome;
     document.getElementById("cert-doc").innerText = usuarioDoc;
-    document.getElementById("cert-data").innerText = new Date().toLocaleDateString('pt-BR');
+    document.getElementById("cert-data").innerText = `${dataFormatada} às ${horaFormatada}`;
     document.getElementById("cert-tempo").innerText = tempoGasto;
     document.getElementById("cert-tentativas").innerText = totalTentativas;
 }

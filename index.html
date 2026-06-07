@@ -71,7 +71,7 @@
         <div class="tabuleiro" id="tabuleiro"></div>
     </div>
 
-    <div id="tela-final" class="container hidden">
+<div id="tela-final" class="container hidden">
         <h2>🎉 Treinamento Concluído!</h2>
         <p>Você fixou com sucesso a ordem correta de higienização das mãos.</p>
         
@@ -81,15 +81,48 @@
         </div>
 
         <div class="dados-certificado">
-            <h3>ATESTADO DE CAPACITAÇÃO</h3>
-            <p><strong>Nome:</strong> <span id="cert-nome"></span></p>
-            <p><strong>Documento:</strong> <span id="cert-doc"></span></p>
-            <p><strong>Data de Conclusão:</strong> <span id="cert-data"></span></p>
-            <p><strong>Desempenho:</strong> Concluído em <span id="cert-tempo"></span> segundos com <span id="cert-tentativas"></span> tentativas[cite: 21].</p>
-            <p><em>Conteúdo Programático Sistema de Lorenzo Costa - Higienização de Mãos para Manipuladores.</em></p>
+            <div class="cabecalho-cert">
+                <span class="etiqueta-cert">CERTIFICADO OFICIAL</span>
+                <strong>REGISTRO DE CAPACITAÇÃO PERIÓDICA</strong>
+                <p>Programa de Boas Práticas (RDC 216/04)</p>
+            </div>
+
+            <div class="cert-grid">
+                <div class="linha-cert"><span>NOME DO PARTICIPANTE</span><strong id="cert-nome"></strong></div>
+                <div class="linha-cert"><span>CPF / MATRÍCULA</span><strong id="cert-doc"></strong></div>
+                <div class="linha-cert"><span>DATA DE CONCLUSÃO</span><strong id="cert-data"></strong></div>
+            </div>
+
+            <div class="conteudo-cert">
+                <strong>CONTEÚDO PROGRAMÁTICO</strong>
+                <ul>
+                    <li>Importância da Higienização das Mãos na Manipulação de Alimentos.</li>
+                    <li>Sequência correta da Lavagem e Antissepsia.</li>
+                    <li>Tempo de contato do antisséptico e secagem com papel não reciclado.</li>
+                </ul>
+            </div>
+
+            <div class="cert-grid">
+                <div class="linha-cert"><span>METODOLOGIA</span><strong>Atividade Prática Gamificada</strong></div>
+                <div class="linha-cert"><span>CARGA HORÁRIA</span><strong>15 minutos</strong></div>
+            </div>
+
+            <div class="conteudo-cert">
+                <strong>DESEMPENHO DO PARTICIPANTE</strong>
+                <p>Concluído em <strong><span id="cert-tempo"></span> segundos</strong> com <strong><span id="cert-tentativas"></span> tentativas</strong>.</p>
+            </div>
+
+            <div class="rodape-cert">
+                O participante concluiu com aproveitamento a atividade semanal de reforço em Higiene Pessoal e Manipulação Higiênica.
+            </div>
+
+            <div class="assinatura-cert">
+                <span class="assinatura-linha"></span>
+                Assinatura do Responsável Técnico / Supervisor
+            </div>
         </div>
 
-        <button onclick="window.print()">Imprimir / Salvar PDF</button>
+        <button onclick="window.print()" class="btn-verde">Imprimir / Salvar PDF</button>
         <button onclick="reiniciarParaPainel()" class="btn-secundario">Voltar ao Painel</button>
     </div>
 
