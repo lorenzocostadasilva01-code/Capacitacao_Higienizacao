@@ -51,8 +51,8 @@ h2 {
 p { 
     color: var(--text-muted); 
     margin-bottom: 24px; 
-    font-size: 15px; 
-    line-dash: 1.5;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 /* Inputs e Botões Modernizados */
@@ -357,3 +357,148 @@ button:active {
         border: none !important;
     }
 }
+
+/* Configuração da Frente da Carta com Foto */
+.carta-frente {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px !important;
+}
+
+/* Pequeno balão com o número da etapa */
+.numero-etapa {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: var(--primary);
+    color: white;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 800;
+    z-index: 2;
+}
+
+/* Estilização da Foto da Mão Sendo Lavada */
+.foto-etapa {
+    width: 100%;
+    height: 60px;
+    object-fit: cover; /* Faz a imagem cortar sem distorcer */
+    border-radius: 8px;
+    margin-top: 14px;
+}
+
+/* Legenda da Etapa */
+.texto-etapa {
+    font-size: 11px !important;
+    font-weight: 600;
+    margin-bottom: 2px !important;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+/* Customização de Cores dos Botões do Fluxo Oficial (Verde) */
+.btn-verde {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.3) !important;
+}
+.btn-verde:hover {
+    background-color: #16a34a !important;
+    box-shadow: 0 6px 12px -1px rgba(34, 197, 94, 0.4) !important;
+}
+
+/* Telas Iniciais de Boas Vindas e Login */
+.icone-principal { font-size: 50px; margin-bottom: 15px; }
+.titulo-app { font-size: 26px; font-weight: 800; color: #0369a1; margin-bottom: 8px; }
+.subtitulo-app { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; }
+
+.topo-retroceder {
+    text-align: left;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--text-muted);
+    margin-top: -20px;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-weight: 300;
+}
+.topo-retroceder:hover { color: var(--primary); }
+.icone-registro { font-size: 40px; margin-bottom: 10px; }
+
+/* Estrutura de Formulário de Identificação */
+.grupo-input {
+    text-align: left;
+    margin-bottom: 16px;
+}
+.grupo-input label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+.grupo-input input { margin-bottom: 0px !important; }
+
+.grupo-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+.grupo-checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.grupo-checkbox label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    user-select: none;
+    cursor: pointer;
+}
+
+/* Painel de Controle Oficial (Tela 3) */
+.topo-painel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+}
+.avatar-usuario { font-size: 24px; background: #e2e8f0; padding: 6px; border-radius: 50%; }
+.titulo-mini { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: left; flex-grow: 1; margin-left: 10px; }
+.ajuda-btn { font-size: 16px; font-weight: 700; border: 2px solid var(--text-muted); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+
+.saudacao { text-align: left; font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 20px; }
+
+.bloco-status {
+    background: #fff5f5;
+    border: 1px solid #fee2e2;
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.label-status { font-weight: 700; color: #991b1b; font-size: 14px; }
+.badge-pendente { background: #ef4444; color: white; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 13px; letter-spacing: 0.5px; }
+
+.bloco-dica {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+.bloco-dica strong { display: block; font-size: 14px; color: var(--primary); margin-bottom: 8px; }
+.bloco-dica p { margin-bottom: 12px !important; font-size: 13.5px; color: #475569; line-height: 1.5; }
+.tempo-estimado { font-size: 11px; color: var(--text-muted); font-weight: 600; display: block; }

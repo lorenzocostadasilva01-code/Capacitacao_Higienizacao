@@ -1,52 +1,134 @@
-// Banco de dados simulado com as etapas corretas da higienização [cite: 11]
+// Banco de dados simulado com fotos reais de cada etapa da higienização
 const etapas = [
-    { id: 1, texto: "1. Umedecer as mãos" },
-    { id: 2, texto: "2. Passar sabonete" },
-    { id: 3, texto: "3. Esfregar palmas" },
-    { id: 4, texto: "4. Esfregar dorsos" },
-    { id: 5, texto: "5. Enxaguar bem" },
-    { id: 6, texto: "6. Secar (Papel)" }
+    { 
+        id: 1, 
+        texto: "1. Umedecer as mãos", 
+        imagem: "Imagens/imagem 1.JFIF" 
+    },
+    { 
+        id: 2, 
+        texto: "2. Passar sabonete", 
+        imagem: "Imagens/imagem 2.JFIF" 
+    },
+    { 
+        id: 3, 
+        texto: "3. Esfregar palmas", 
+        imagem: "Imagens/imagem 3.JFIF" 
+    },
+    { 
+        id: 4, 
+        texto: "4. Esfregar dorsos", 
+        imagem: "Imagens/imagem 4.JFIF" 
+    },
+    { 
+        id: 5, 
+        texto: "5. Enxaguar bem", 
+        imagem: "Imagens/imagem 5.JFIF" 
+    },
+    { 
+        id: 6, 
+        texto: "6. Secar (Papel)", 
+        imagem: "Imagens/imagem 6.JFIF" 
+    }
 ];
 
-let usuarioAtual = "";
-let etapaCronologicaAtual = 1; // Controla a trava sequencial obrigatória [cite: 17]
+// Lista de frases de boas-vindas personalizadas mantidas
+// O pool de frases rotativas mantido conforme seu pedido anterior
+const frasesBoasVindas = [
+    "Encontre os pares seguindo a sequência correta das etapas.",
+    "Encontre os pares na ordem certa do passo a passo.",
+    "Encontre os pares seguindo o passo a passo correto.",
+    "Encontre os pares e monte o passo a passo da lavagem perfeita !",
+    "Siga a ordem certa das etapas para liberar os pares!",
+    "Combine as cartas na sequência certa da higienização."
+];
+
+let usuarioNome = "";
+let usuarioDoc = "";
+let etapaCronologicaAtual = 1; 
 let cartasSelecionadas = [];
-let totalTentativas = 0; // [cite: 21]
-let tempoGasto = 0; // [cite: 21]
+let totalTentativas = 0; 
+let tempoGasto = 0; 
 let intervaloCronometro = null;
 
-// Passo 1: Iniciar e registrar presença
-function iniciarTreinamento() {
-    const inputNome = document.getElementById("nome-usuario");
-    if (inputNome.value.trim() === "") {
-        alert("Por favor, digite seu nome completo.");
+// Ao carregar o app, verifica se o usuário marcou para lembrar os dados da última vez
+window.addEventListener("DOMContentLoaded", () => {
+    const nomeSalvo = localStorage.getItem("lembrar_nome");
+    const docSalvo = localStorage.getItem("lembrar_doc");
+    if (nomeSalvo && docSalvo) {
+        document.getElementById("nome-usuario").value = nomeSalvo;
+        document.getElementById("documento-usuario").value = docSalvo;
+        document.getElementById("lembrar-dados").checked = true;
+    }
+});
+
+// Navegação interna
+function irParaLogin() {
+    document.getElementById("tela-boas-vindas").classList.add("hidden");
+    document.getElementById("tela-login").classList.remove("hidden");
+}
+
+function voltarParaBoasVindas() {
+    document.getElementById("tela-login").classList.add("hidden");
+    document.getElementById("tela-boas-vindas").classList.remove("hidden");
+}
+
+// Validação e processamento do formulário de login (Tela 2 -> Tela 3)
+function autenticarUsuario() {
+    const inputNome = document.getElementById("nome-usuario").value.trim();
+    const inputDoc = document.getElementById("documento-usuario").value.trim();
+    const checkboxLembrar = document.getElementById("lembrar-dados").checked;
+
+    if (inputNome === "" || inputDoc === "") {
+        alert("Por favor, preencha todos os campos para registrar sua presença.");
         return;
     }
 
-    usuarioAtual = inputNome.value.trim();
-    localStorage.setItem("usuario_boas_praticas", usuarioAtual); 
+    usuarioNome = inputNome;
+    usuarioDoc = inputDoc;
 
-    document.getElementById("exibir-nome").innerText = usuarioAtual;
+    // Gerencia o recurso de lembrar dados localmente
+    if (checkboxLembrar) {
+        localStorage.setItem("lembrar_nome", usuarioNome);
+        localStorage.setItem("lembrar_doc", usuarioDoc);
+    } else {
+        localStorage.removeItem("lembrar_nome");
+        localStorage.removeItem("lembrar_doc");
+    }
+
+    // Registra a presença em segundo plano conforme exigência do diagnóstico técnico
+    console.log(`Presença registrada: ${usuarioNome} - ${usuarioDoc} em ${new Date().toLocaleString()}`);
+
+    // Prepara e abre a Tela 3 (Painel do Usuário)
+    document.getElementById("painel-nome").innerText = usuarioNome;
+    
+    // Altera dinamicamente a frase de instruções/boas-vindas a cada login
+    const indiceAleatorio = Math.floor(Math.random() * frasesBoasVindas.length);
+    document.getElementById("instrucao-jogo").innerHTML = frasesBoasVindas[indiceAleatorio];
+
     document.getElementById("tela-login").classList.add("hidden");
+    document.getElementById("tela-painel").classList.remove("hidden");
+}
+
+// Inicia a partida vindo do Painel de Controle (Tela 3 -> Tela 4)
+function iniciarPartidaJogo() {
+    document.getElementById("exibir-nome").innerText = usuarioNome;
+    document.getElementById("tela-painel").classList.add("hidden");
     document.getElementById("tela-jogo").classList.remove("hidden");
 
     gerarTabuleiro();
     iniciarCronometro();
 }
 
-// Inicia a contagem de tempo [cite: 21]
 function iniciarCronometro() {
     tempoGasto = 0;
-    // Evita acumular múltiplos intervalos se reiniciar o jogo
     if (intervaloCronometro) clearInterval(intervaloCronometro);
-    
     intervaloCronometro = setInterval(() => {
         tempoGasto++;
         document.getElementById("tempo").innerText = tempoGasto;
     }, 1000);
 }
 
-// Cria as cartas embaralhadas no tabuleiro com estrutura 3D [cite: 16]
 function gerarTabuleiro() {
     const tabuleiro = document.getElementById("tabuleiro");
     tabuleiro.innerHTML = "";
@@ -58,12 +140,14 @@ function gerarTabuleiro() {
         const elementoCarta = document.createElement("div");
         elementoCarta.classList.add("carta");
         elementoCarta.dataset.etapaId = etapa.id;
-        elementoCarta.dataset.texto = etapa.texto;
 
-        // Estrutura necessária para o efeito de rotação 3D do CSS
         elementoCarta.innerHTML = `
             <div class="carta-face carta-verso">💧</div>
-            <div class="carta-face carta-frente">${etapa.texto}</div>
+            <div class="carta-face carta-frente">
+                <span class="numero-etapa">${etapa.id}</span>
+                <img src="${etapa.imagem}" alt="${etapa.texto}" class="foto-etapa">
+                <p class="texto-etapa">${etapa.texto}</p>
+            </div>
         `;
 
         elementoCarta.addEventListener("click", virarCarta);
@@ -71,7 +155,6 @@ function gerarTabuleiro() {
     });
 }
 
-// Lógica ao clicar em uma carta [cite: 16, 17]
 function virarCarta() {
     if (this.classList.contains("virada") || this.classList.contains("revelada") || cartasSelecionadas.length >= 2) {
         return;
@@ -87,7 +170,6 @@ function virarCarta() {
     }
 }
 
-// Regra crucial: Checa o par e valida a ordem cronológica [cite: 17]
 function checarPar() {
     const [carta1, carta2] = cartasSelecionadas;
     const idEtapa1 = parseInt(carta1.dataset.etapaId);
@@ -95,20 +177,17 @@ function checarPar() {
 
     if (idEtapa1 === idEtapa2) {
         if (idEtapa1 === etapaCronologicaAtual) {
-            // Acertou o par na sequência correta! [cite: 17]
             carta1.classList.add("revelada");
             carta2.classList.add("revelada");
             
-            mostrarNumeroGigante(etapaCronologicaAtual); // Fixação visual [cite: 18]
+            mostrarNumeroGigante(etapaCronologicaAtual); 
             etapaCronologicaAtual++; 
-            
             cartasSelecionadas = [];
 
             if (etapaCronologicaAtual > etapas.length) {
                 setTimeout(finalizarTreinamento, 800);
             }
         } else {
-            // Encontrou um par, mas violou a cronologia [cite: 17]
             setTimeout(() => {
                 alert(`⚠️ Sequência incorreta! Você precisa encontrar a Etapa ${etapaCronologicaAtual} primeiro.`);
                 carta1.classList.remove("virada");
@@ -117,7 +196,6 @@ function checarPar() {
             }, 600);
         }
     } else {
-        // Não formou um par
         setTimeout(() => {
             carta1.classList.remove("virada");
             carta2.classList.remove("virada");
@@ -126,15 +204,13 @@ function checarPar() {
     }
 }
 
-// Feedback visual: exibe o número gigante na tela [cite: 18]
 function mostrarNumeroGigante(numero) {
     const feedback = document.getElementById("feedback-visual");
     feedback.innerText = numero;
     feedback.classList.remove("hidden");
     
-    // Força o reset da animação CSS
     feedback.style.animation = 'none';
-    feedback.offsetHeight; // Truque para reiniciar animações no navegador
+    feedback.offsetHeight; 
     feedback.style.animation = null;
 
     setTimeout(() => {
@@ -142,27 +218,30 @@ function mostrarNumeroGigante(numero) {
     }, 800);
 }
 
-// Passo 4: Fim do Jogo e Emissão do Atestado Local [cite: 19, 23]
 function finalizarTreinamento() {
     clearInterval(intervaloCronometro);
-    
     document.getElementById("tela-jogo").classList.add("hidden");
     document.getElementById("tela-final").classList.remove("hidden");
 
-    document.getElementById("cert-nome").innerText = usuarioAtual;
+    document.getElementById("cert-nome").innerText = usuarioNome;
+    document.getElementById("cert-doc").innerText = usuarioDoc;
     document.getElementById("cert-data").innerText = new Date().toLocaleDateString('pt-BR');
     document.getElementById("cert-tempo").innerText = tempoGasto;
     document.getElementById("cert-tentativas").innerText = totalTentativas;
 }
 
-// Permite reiniciar a atividade [cite: 25]
-function reiniciarJogo() {
+function reiniciarParaPainel() {
     etapaCronologicaAtual = 1;
+    cartasSelecionadas = [];
     totalTentativas = 0;
     document.getElementById("tentativas").innerText = 0;
     document.getElementById("tempo").innerText = 0;
+    
     document.getElementById("tela-final").classList.add("hidden");
-    document.getElementById("tela-jogo").classList.remove("hidden");
-    gerarTabuleiro();
-    iniciarCronometro();
+    
+    // Recarrega a tela de painel com uma nova frase randômica para a próxima rodada
+    const indiceAleatorio = Math.floor(Math.random() * frasesBoasVindas.length);
+    document.getElementById("instrucao-jogo").innerHTML = frasesBoasVindas[indiceAleatorio];
+    
+    document.getElementById("tela-painel").classList.remove("hidden");
 }

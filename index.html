@@ -8,17 +8,63 @@
 </head>
 <body>
 
-    <div id="tela-login" class="container">
-        <h2>Capacitação de Boas Práticas</h2>
-        <p>Insira seu nome para iniciar o treinamento e registrar sua presença.</p>
-        <input type="text" id="nome-usuario" placeholder="Nome Completo" required>
-        <button onclick="iniciarTreinamento()">Iniciar Treinamento</button>
+    <div id="tela-boas-vindas" class="container">
+        <div class="icone-principal">🧼</div>
+        <h2 class="titulo-app">"Mãos Limpas,<br>Alimento Seguro"</h2>
+        <p class="subtitulo-app">Treinamento Rápido de Higienização</p>
+        <button onclick="irParaLogin()" class="btn-verde">COMEÇAR AGORA</button>
+    </div>
+
+    <div id="tela-login" class="container hidden">
+        <div class="topo-retroceder" onclick="voltarParaBoasVindas()">‹</div>
+        <div class="icone-registro">📋</div>
+        <h2>Identifique-se</h2>
+        <p>Para registrar sua presença e validar seu treinamento desta semana, informe seus dados abaixo.</p>
+        
+        <div class="grupo-input">
+            <label>Nome Completo</label>
+            <input type="text" id="nome-usuario" placeholder="Digite seu nome completo" required>
+        </div>
+
+        <div class="grupo-input">
+            <label>CPF / Matrícula</label>
+            <input type="text" id="documento-usuario" placeholder="000.000.000-00 ou Matrícula" required>
+        </div>
+
+        <div class="grupo-checkbox">
+            <input type="checkbox" id="lembrar-dados">
+            <label for="lembrar-dados">Lembrar meus dados neste aparelho.</label>
+        </div>
+
+        <button onclick="autenticarUsuario()" class="btn-verde">ENTRAR E JOGAR</button>
+    </div>
+
+    <div id="tela-painel" class="container hidden">
+        <header class="topo-painel">
+            <div class="avatar-usuario">👤</div>
+            <div class="titulo-mini">Mãos Limpas,<br>Alimento Seguro</div>
+            <div class="ajuda-btn">?</div>
+        </header>
+
+        <h1 class="saudacao">Olá, <span id="painel-nome"></span>.</h1>
+
+        <div class="bloco-status">
+            <span class="label-status">Treinamento da Semana:</span>
+            <div class="badge-pendente">[ PENDENTE ]</div>
+        </div>
+
+        <div class="bloco-dica">
+            <strong>💡 Dica do Jogo:</strong>
+            <p id="instrucao-jogo">Encontre os pares das etapas de lavagem das mãos, mas atenção: você deve seguir a ordem correta (1º, 2º, 3º...) para validar os pontos.</p>
+            <span class="tempo-estimado">Tempo estimado: 3 a 5 minutos.</span>
+        </div>
+
+        <button onclick="iniciarPartidaJogo()" class="btn-verde">INICIAR JOGO</button>
     </div>
 
     <div id="tela-jogo" class="container hidden">
         <header>
-            <h3>Olá, <span id="exibir-nome"></span>!</h3>
-            <p>Encontre os pares na <strong>ordem cronológica correta</strong> das etapas.</p>
+            <h3>Jogador: <span id="exibir-nome"></span></h3>
             <div class="cronometro">Tempo: <span id="tempo">0</span>s | Tentativas: <span id="tentativas">0</span></div>
         </header>
 
@@ -27,23 +73,24 @@
 
     <div id="tela-final" class="container hidden">
         <h2>🎉 Treinamento Concluído!</h2>
-        <p>Você fixou com sucesso a ordem correta de higienização das mãos.</p>
+        <p>Você fixou com sucesso a ordem correta de higienização das mãos[cite: 6].</p>
         
         <div class="alerta-sanitario">
             <strong>⚠️ Lembrete de Boas Práticas:</strong><br>
-            Não se esqueça do tempo de contato do antisséptico e de sempre realizar a secagem correta utilizando papel não reciclado!
+            Não se esqueça do tempo de contato do antisséptico e de sempre realizar a secagem correta utilizando papel não reciclado[cite: 19]!
         </div>
 
         <div class="dados-certificado">
             <h3>ATESTADO DE CAPACITAÇÃO</h3>
             <p><strong>Nome:</strong> <span id="cert-nome"></span></p>
+            <p><strong>Documento:</strong> <span id="cert-doc"></span></p>
             <p><strong>Data de Conclusão:</strong> <span id="cert-data"></span></p>
-            <p><strong>Desempenho:</strong> Concluído em <span id="cert-tempo"></span> segundos com <span id="cert-tentativas"></span> tentativas.</p>
-            <p><em>Conteúdo Programático Sistema de Lorenzo Costa - Higienização de Mãos para Manipuladores.</em></p>
+            <p><strong>Desempenho:</strong> Concluído em <span id="cert-tempo"></span> segundos com <span id="cert-tentativas"></span> tentativas[cite: 21].</p>
+            <p><em>Conteúdo Programático Sistema de Lorenzo Costa - Higienização de Mãos para Manipuladores[cite: 5].</em></p>
         </div>
 
         <button onclick="window.print()">Imprimir / Salvar PDF</button>
-        <button onclick="reiniciarJogo()" class="btn-secundario">Jogar Novamente</button>
+        <button onclick="reiniciarParaPainel()" class="btn-secundario">Voltar ao Painel</button>
     </div>
 
     <div id="feedback-visual" class="feedback hidden"></div>
